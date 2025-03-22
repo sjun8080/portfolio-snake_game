@@ -43,6 +43,23 @@ npm install
 npm run dev
 ```
 
+## Live Demo
+
+You can view a live demo of this project at:
+- Replit: https://[your-replit-username]-portfolio-snake-game.replit.app/
+
+### Deploy to GitHub Pages
+
+To deploy this game to GitHub Pages:
+
+1. Go to your GitHub repository
+2. Click on "Settings"
+3. Navigate to "Pages" in the left sidebar
+4. Under "Source", select "GitHub Actions"
+5. Click "Configure" on the "Static HTML" workflow
+6. Commit the suggested workflow file
+7. The game will be deployed to `https://sjun8080.github.io/portfolio-snake_game/`
+
 ## License
 
 MIT
