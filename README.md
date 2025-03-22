@@ -46,7 +46,8 @@ npm run dev
 ## Live Demo
 
 You can view a live demo of this project at:
-- Replit: https://[your-replit-username]-portfolio-snake-game.replit.app/
+- Replit: Click the "Run" button in Replit to start the game server
+- GitHub: https://sjun8080.github.io/portfolio-snake_game/ (after configuring GitHub Pages)
 
 ### Deploy to GitHub Pages
 
