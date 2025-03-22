@@ -31,10 +31,10 @@ A classic Snake game implemented using React, TypeScript, and HTML5 Canvas. This
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR-USERNAME/YOUR-REPO-NAME.git
+git clone https://github.com/sjun8080/portfolio-snake_game.git
 
 # Navigate to the project directory
-cd YOUR-REPO-NAME
+cd portfolio-snake_game
 
 # Install dependencies
 npm install
