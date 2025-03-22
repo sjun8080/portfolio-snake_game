@@ -1,0 +1,81 @@
+import pygame
+print("Pygame is working")
+import random
+pygame.init()
+
+#setting up constants
+WIDTH, HEIGHT = 600, 600
+BLOCK_SIZE = 20
+WHITE, GREEN, RED = (255, 255, 255), (0,255,0),(255,0,0)
+
+screen = pygame.display.set_mode((WIDTH, HEIGHT)) #Creates the game window.
+clock = pygame.time.Clock() #Controls the game speed (FPS).
+
+#initializing the snake and food
+snake = [(300, 300), (280, 300), (260, 300)] #positions of the snake
+direction = (20, 0)  # Snake moves right initially
+food = (random.randrange(0, WIDTH, BLOCK_SIZE), random.randrange(0, HEIGHT, BLOCK_SIZE))
+# Random food position
+
+#
+game_is_on = False
+while True:
+    screen.fill(WHITE) #this is for clearing the screen before drawing
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            exit()
+    #when the use hit 'x' on the window, it quits the game
+
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:  # Space key to start the game
+                game_is_on = True  # Game starts when space is pressed
+            if event.key == pygame.K_UP and direction != (0,20):
+                direction = (0, -20) #in pygame, -20 is heading up (different from others)
+                # if the snaking is not heading up (collision prevention), the direction is down
+            elif event.key == pygame.K_DOWN and direction != (0,-20):
+                direction = (0, 20) #heading down
+            elif event.key == pygame.K_LEFT and direction !=(20, 0):
+                direction = (-20, 0) #going left
+            elif event.key == pygame.K_RIGHT and direction != (-20, 0):
+                direction = (20, 0) #going right
+
+    if game_is_on:
+        new_head = (snake[0][0] + direction[0], snake[0][1] + direction[1])
+        snake = [new_head] + snake[:-1]# removing the last element to maintain the same length
+
+        if snake[0] == food: #snake's head(snake[0]) is at the same position with food
+            snake.append(snake[-1])
+            food = (random.randrange(0, WIDTH, BLOCK_SIZE), random.randrange(0, HEIGHT, BLOCK_SIZE))
+
+     # Detect collision with wall
+        if snake[0][0] < 0 or snake[0][0] >= WIDTH or snake[0][1] < 0 or snake[0][1] >= HEIGHT:
+            game_is_on = False  # Game over when the snake hits the wall
+        #snake[0][0] → The x-coordinate of the snake’s head.
+        #snake[0][1] → The y-coordinate of the snake’s head.
+        #Left Wall → snake[0][0] < 0, unlike the other module, pygame has left lower 0,0
+        #Right Wall → snake[0][0] >= WIDTH (600)
+        #Top Wall → snake[0][1] < 0
+        #Bottom Wall → snake[0][1] >= HEIGHT (600)
+
+        # Detect collision with itself
+        if snake[0] in snake[1:]: #if snake head is in rest of the body
+            game_is_on = False  # Game over when the snake collides with itself
+        # Checks if the head's position is already in the body.
+    # Draw the snake
+        for segment in snake:
+            pygame.draw.rect(screen, GREEN, (segment[0], segment[1], BLOCK_SIZE, BLOCK_SIZE))
+        # Draw the food
+        pygame.draw.rect(screen, RED, (food[0], food[1], BLOCK_SIZE, BLOCK_SIZE))
+    else:
+        # Display "Press Space to Start" message when the game is not started
+        font = pygame.font.SysFont(None, 36)
+        start_message = font.render("Press SPACE to Start", True, (0, 0, 0))
+        screen.blit(start_message, (WIDTH // 2 - start_message.get_width() // 2, HEIGHT // 2))
+
+    pygame.display.update()  # Update the screen
+    clock.tick(10)  # Set the speed of the game (10 FPS)
+
+#pygame.quit()  # Quit Pygame when the game is over
